@@ -5,10 +5,6 @@ import * as iam from '@aws-cdk/aws-iam'
 import {
   readFileSync
 } from 'fs';
-import {
-  Console
-} from 'console';
-
 
 export class CdkStack extends cdk.Stack {
 
