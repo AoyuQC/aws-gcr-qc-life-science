@@ -2,7 +2,12 @@ import * as cdk from '@aws-cdk/core';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as sagemaker from '@aws-cdk/aws-sagemaker';
 import * as iam from '@aws-cdk/aws-iam'
-import { readFileSync } from 'fs';
+import {
+  readFileSync
+} from 'fs';
+import {
+  Console
+} from 'console';
 
 
 export class CdkStack extends cdk.Stack {
@@ -31,7 +36,9 @@ export class CdkStack extends cdk.Stack {
       autoDeleteObjects: true
     });
 
-    const role = this.createIamRole()
+  //  this.createAWSServiceRoleForAmazonBraket()
+
+    const role = this.createNotebookIamRole()
 
     const onStartContent = readFileSync(`${__dirname}/onStart.template`, 'utf-8')
 
@@ -53,7 +60,7 @@ export class CdkStack extends cdk.Stack {
       volumeSizeInGb: 120,
 
     });
-    
+
     // Output //////////////////////////
 
     new cdk.CfnOutput(this, "notebookName", {
@@ -76,7 +83,7 @@ export class CdkStack extends cdk.Stack {
 
   // Methods //////////////////////////
 
-  createIamRole(): iam.Role {
+  createNotebookIamRole(): iam.Role {
 
     const role = new iam.Role(this, 'gcr-qc-notebook-role', {
       assumedBy: new iam.ServicePrincipal('sagemaker.amazonaws.com'),
@@ -117,5 +124,22 @@ export class CdkStack extends cdk.Stack {
       ]
     }));
     return role;
+  }
+
+  createAWSServiceRoleForAmazonBraket(): iam.Role | null {
+    try {
+      const role = new iam.Role(this, 'AWSServiceRoleForAmazonBraket', {
+        assumedBy: new iam.ServicePrincipal('braket.amazonaws.com'),
+        path: '/aws-service-role/braket.amazonaws.com/',
+        description: 'Service role created by CDK',
+        roleName: 'AWSServiceRoleForAmazonBraket'
+      });
+
+      role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonBraketServiceRolePolicy'))
+      return role;
+    } catch (e) {
+      console.log(e)
+      return null;
+    }
   }
 }
