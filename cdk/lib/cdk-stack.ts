@@ -36,8 +36,6 @@ export class CdkStack extends cdk.Stack {
       autoDeleteObjects: true
     });
 
-  //  this.createAWSServiceRoleForAmazonBraket()
-
     const role = this.createNotebookIamRole()
 
     const onStartContent = readFileSync(`${__dirname}/onStart.template`, 'utf-8')
@@ -124,22 +122,5 @@ export class CdkStack extends cdk.Stack {
       ]
     }));
     return role;
-  }
-
-  createAWSServiceRoleForAmazonBraket(): iam.Role | null {
-    try {
-      const role = new iam.Role(this, 'AWSServiceRoleForAmazonBraket', {
-        assumedBy: new iam.ServicePrincipal('braket.amazonaws.com'),
-        path: '/aws-service-role/braket.amazonaws.com/',
-        description: 'Service role created by CDK',
-        roleName: 'AWSServiceRoleForAmazonBraket'
-      });
-
-      role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonBraketServiceRolePolicy'))
-      return role;
-    } catch (e) {
-      console.log(e)
-      return null;
-    }
   }
 }
