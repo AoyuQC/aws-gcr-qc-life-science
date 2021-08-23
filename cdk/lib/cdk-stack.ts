@@ -15,11 +15,15 @@ export class CdkStack extends cdk.Stack {
 
     // The code that defines your stack goes here
 
+    // CfnParameter  //////////////////////////
+
     const instanceTypeParam = new cdk.CfnParameter(this, "NotebookInstanceType", {
       type: "String",
       default: INSTANCE_TYPE,
       description: "Sagemaker notebook instance type"
     });
+
+    // Resouces  //////////////////////////
 
     const s3bucket = new s3.Bucket(this, 'amazon-braket', {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -49,6 +53,8 @@ export class CdkStack extends cdk.Stack {
       volumeSizeInGb: 120,
 
     });
+    
+    // Output //////////////////////////
 
     new cdk.CfnOutput(this, "notebookName", {
       value: notebookInstnce.attrNotebookInstanceName,
@@ -67,6 +73,8 @@ export class CdkStack extends cdk.Stack {
       description: "Notebook URL"
     });
   }
+
+  // Methods //////////////////////////
 
   createIamRole(): iam.Role {
 
