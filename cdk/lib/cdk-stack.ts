@@ -34,7 +34,7 @@ export class CdkStack extends cdk.Stack {
     // Resouces  //////////////////////////
 
     const s3bucket = new s3.Bucket(this, 'amazon-braket', {
-      //removalPolicy: cdk.RemovalPolicy.DESTROY,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
       bucketName: `amazon-braket-gcrqc-${this.account}-${this.region}`,
       //autoDeleteObjects: true
     });

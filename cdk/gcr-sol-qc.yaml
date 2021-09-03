@@ -19,8 +19,8 @@ Resources:
             - Ref: AWS::AccountId
             - "-"
             - Ref: AWS::Region
-    UpdateReplacePolicy: Retain
-    DeletionPolicy: Retain
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: gcr-qc-life-science-cdk-stack/amazon-braket/Resource
   gcrqcnotebookrole3D345977:
