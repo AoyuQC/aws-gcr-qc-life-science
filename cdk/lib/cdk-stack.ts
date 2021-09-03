@@ -10,6 +10,7 @@ export class CdkStack extends cdk.Stack {
 
   constructor(scope: cdk.Construct, id: string, props ? : cdk.StackProps) {
     super(scope, id, props);
+    this.templateOptions.description = '(SO8029) CDK for GCR solution: Quantum Computing in HCLS'
 
     const INSTANCE_TYPE = 'ml.m5.4xlarge'
     const CODE_REPO = 'https://github.com/amliuyong/aws-gcr-qc-life-science-public.git'

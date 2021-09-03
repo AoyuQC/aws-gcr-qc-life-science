@@ -1,3 +1,4 @@
+Description: "(SO8029) CDK for GCR solution: Quantum Computing in HCLS"
 Parameters:
   NotebookInstanceType:
     Type: String
