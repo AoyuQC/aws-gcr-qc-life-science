@@ -24,12 +24,18 @@ export class CdkStack extends cdk.Stack {
       description: "Sagemaker notebook instance type"
     });
 
+    const gitHubParam = new cdk.CfnParameter(this, "GitHubRepo", {
+      type: "String",
+      default: CODE_REPO,
+      description: "Public GitHub repository"
+    });
+
     // Resouces  //////////////////////////
 
     const s3bucket = new s3.Bucket(this, 'amazon-braket', {
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      bucketName: `amazon-braket-${this.account}-${this.region}`,
-      autoDeleteObjects: true
+      //removalPolicy: cdk.RemovalPolicy.DESTROY,
+      bucketName: `amazon-braket-gcrqc-${this.account}-${this.region}`,
+      //autoDeleteObjects: true
     });
 
     const role = this.createNotebookIamRole()
@@ -50,7 +56,7 @@ export class CdkStack extends cdk.Stack {
       roleArn: role.roleArn,
       rootAccess: 'Enabled',
       lifecycleConfigName: installBraketSdK.attrNotebookInstanceLifecycleConfigName,
-      defaultCodeRepository: CODE_REPO,
+      defaultCodeRepository: gitHubParam.valueAsString,
       volumeSizeInGb: 120,
 
     });
@@ -86,7 +92,6 @@ export class CdkStack extends cdk.Stack {
     role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonBraketFullAccess'))
     role.addToPolicy(new iam.PolicyStatement({
       resources: [
-        'arn:aws:s3:::gcr-qc-life-science-cdk-*',
         'arn:aws:s3:::amazon-braket-*',
         'arn:aws:s3:::braketnotebookcdk-*'
       ],
