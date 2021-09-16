@@ -7,3 +7,5 @@ unzip braket-notebook-lcc.zip
 rm braket-notebook-lcc.zip
 
 docker build -t qc-batch-experiment .
+cd ..
+rm -rf braket_install
