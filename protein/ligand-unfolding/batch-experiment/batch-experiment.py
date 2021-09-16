@@ -1,6 +1,6 @@
 import argparse
 import logging
-
+import botocore
 import boto3
 import dimod
 import numpy as np
@@ -423,7 +423,6 @@ response_aggregate = response.aggregate()
 
 
 account_id = boto3.client('sts').get_caller_identity().get('Account')
-session = boto3.session.Session()
 
 logging.info("account_id:{}, aws_region:{}".format(account_id, aws_region))
 
@@ -439,9 +438,11 @@ num_reads = n_q
 start = time.time()
 # run BQM: solve with the D-Wave 2000Q device
 # sampler = BraketDWaveSampler(s3_folder,'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6')
-aws_session = boto3.session.Session(region_name=aws_region)
 
-sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=aws_session)
+botocore_session = botocore.session.Session(region_name=aws_region)
+boto3.setup_default_session(botocore_session=botocore_session)
+
+sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=botocore_session)
 end = time.time()
 t1 = (end - start) / 60
 logging.info("elasped time for init sampler {} min".format(t1))
