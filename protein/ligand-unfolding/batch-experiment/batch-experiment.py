@@ -1,20 +1,18 @@
 import argparse
 import logging
-import botocore
+
 import boto3
 import dimod
 import numpy as np
-from braket.aws import AwsSession, AwsDevice
-from braket.ocean_plugin import BraketDWaveSampler
-from dwave.system.composites import EmbeddingComposite
 # experiment for biopandas
 from biopandas.pdb import PandasPdb
-
+from braket.aws import AwsSession
+from braket.ocean_plugin import BraketDWaveSampler
+from dwave.system.composites import EmbeddingComposite
 
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
-                        datefmt='%Y-%m-%d:%H:%M:%S',
-                        level=logging.INFO)
-
+                    datefmt='%Y-%m-%d:%H:%M:%S',
+                    level=logging.INFO)
 
 DEFAULT_DEVICE_ARN = 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1'
 DEFAULT_M = 4
@@ -25,7 +23,6 @@ parser.add_argument('--M', type=int, default=DEFAULT_M)
 parser.add_argument('--device-arn', type=str, default=DEFAULT_DEVICE_ARN)
 parser.add_argument('--aws-region', type=str, default=DEFAULT_AWS_REGION)
 
-
 args, _ = parser.parse_known_args()
 
 M = args.M
@@ -33,6 +30,26 @@ device_arn = args.device_arn
 aws_region = args.aws_region
 
 logging.info("aws_region: {}, M: {}, device_arn: {}".format(aws_region, M, device_arn))
+
+account_id = boto3.client('sts').get_caller_identity().get('Account')
+
+logging.info("account_id:{}, aws_region:{}".format(account_id, aws_region))
+
+my_bucket = "amazon-braket-gcrqc-{}-{}".format(account_id, aws_region)  # the name of the bucket
+my_prefix = "annealer-experiment"  # the name of the folder in the bucket
+
+boto3.setup_default_session(region_name=aws_region)
+boto_sess = boto3.Session(region_name=aws_region)
+aws_session = AwsSession(boto_session=boto_sess)
+
+s3_client = boto3.client('s3')
+try:
+    s3_client.create_bucket(Bucket=my_bucket)
+except:
+    pass
+
+logging.info("s3_folder: s3://{}/{}".format(my_bucket, my_prefix))
+
 
 def residue_func(row):
     return row['residue_name'] + '_' + str(row['residue_number'])
@@ -49,7 +66,7 @@ n_c = 1000
 # num shots for quantum
 n_q = 1000
 # M = len(sort_torsion_group)
-#M = 4
+# M = 4
 # resolution = 360/8
 D = 8
 
@@ -422,27 +439,13 @@ response_aggregate = response.aggregate()
 # Please enter the S3 bucket you created during onboarding
 # (or any other S3 bucket starting with 'amazon-braket-' in your account) in the code below
 
-
-account_id = boto3.client('sts').get_caller_identity().get('Account')
-
-logging.info("account_id:{}, aws_region:{}".format(account_id, aws_region))
-
-my_bucket = "amazon-braket-gcrqc-{}-{}".format(account_id, aws_region)  # the name of the bucket
-my_prefix = "annealer-experiment"  # the name of the folder in the bucket
 s3_folder = (my_bucket, my_prefix)
-
-logging.info("s3_folder: s3://{}/{}".format(my_bucket, my_prefix))
-
 # set parameters
 num_reads = n_q
 
 start = time.time()
 # run BQM: solve with the D-Wave 2000Q device
 # sampler = BraketDWaveSampler(s3_folder,'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6')
-
-
-boto_sess = boto3.Session(region_name=aws_region)
-aws_session = AwsSession(boto_session=boto_sess)
 
 sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=aws_session)
 end = time.time()
