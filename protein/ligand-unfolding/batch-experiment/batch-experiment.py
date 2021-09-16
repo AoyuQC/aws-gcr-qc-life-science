@@ -442,7 +442,7 @@ start = time.time()
 botocore_session = botocore.session.Session(region_name=aws_region)
 boto3.setup_default_session(botocore_session=botocore_session)
 
-sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=botocore_session)
+sampler = BraketDWaveSampler(s3_folder, device_arn)
 end = time.time()
 t1 = (end - start) / 60
 logging.info("elasped time for init sampler {} min".format(t1))
