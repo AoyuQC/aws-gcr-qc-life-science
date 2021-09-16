@@ -19,7 +19,7 @@ DEFAULT_DEVICE_ARN = 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1'
 DEFAULT_M = 4
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--M', type=str, default=DEFAULT_M)
+parser.add_argument('--M', type=int, default=DEFAULT_M)
 parser.add_argument('--device-arn', type=str, default=DEFAULT_DEVICE_ARN)
 args, _ = parser.parse_known_args()
 logging.info("args:", args)
