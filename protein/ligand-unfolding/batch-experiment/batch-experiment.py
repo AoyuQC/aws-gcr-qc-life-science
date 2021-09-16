@@ -439,7 +439,9 @@ num_reads = n_q
 start = time.time()
 # run BQM: solve with the D-Wave 2000Q device
 # sampler = BraketDWaveSampler(s3_folder,'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6')
-sampler = BraketDWaveSampler(s3_folder, device_arn)
+aws_session = boto3.session.Session(region_name=aws_region)
+
+sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=aws_session)
 end = time.time()
 t1 = (end - start) / 60
 logging.info("elasped time for init sampler {} min".format(t1))
