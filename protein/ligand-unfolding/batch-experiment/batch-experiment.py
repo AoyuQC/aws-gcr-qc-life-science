@@ -1,19 +1,7 @@
 import numpy as np
 import logging
-import dimod
-from braket.aws import AwsDevice
 from braket.ocean_plugin import BraketSampler, BraketDWaveSampler
-import matplotlib.pyplot as plt
-# magic word for producing visualizations in notebook
-import time
-from collections import defaultdict
-from itertools import combinations
-import math
-import networkx as nx
-import dwave_networkx as dnx
-import minorminer
 import dimod
-from dimod.binary_quadratic_model import BinaryQuadraticModel
 from dwave.system.composites import EmbeddingComposite
 import boto3
 

@@ -1,0 +1,8 @@
+numpy
+dimod
+dwave-ocean-sdk
+amazon-braket-sdk
+amazon-braket-ocean-plugin
+biopandas
+
+
