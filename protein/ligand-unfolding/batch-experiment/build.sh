@@ -45,7 +45,7 @@ create_repo $repo_name $REGION 1
 
 account_id=$($AWS_CMD sts get-caller-identity --query Account --output text)
 
-account_ecr_uri=${account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com
+account_ecr_uri=${account_id}.dkr.ecr.${REGION}.amazonaws.com
 
 IMAGEURI=${account_ecr_uri}/$repo_name:latest
 
@@ -53,7 +53,7 @@ docker tag $repo_name ${IMAGEURI}
 
 echo ${IMAGEURI}
 
-$AWS_CMD ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${account_ecr_uri}
+$AWS_CMD ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${account_ecr_uri}
 
 echo ">> push ${IMAGEURI}"
 
