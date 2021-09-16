@@ -22,11 +22,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--M', type=int, default=DEFAULT_M)
 parser.add_argument('--device-arn', type=str, default=DEFAULT_DEVICE_ARN)
 args, _ = parser.parse_known_args()
-logging.info("args:", args)
 
 M = args.M
 device_arn = args.device_arn
 
+logging.info("M: {}, device_arn: {}".format(M, device_arn))
 
 def residue_func(row):
     return row['residue_name'] + '_' + str(row['residue_number'])
