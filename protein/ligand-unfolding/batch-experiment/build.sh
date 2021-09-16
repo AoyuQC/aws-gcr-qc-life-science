@@ -1,11 +1,62 @@
+repo_name='qc-batch-experiment'
+docker build -t $repo_name .
 
-rm -rf braket_install/ > /dev/null 2>&1
+if [[ -z $REGION ]]; then
+  REGION='us-east-1'
+fi
 
-mkdir braket_install/ && cd braket_install/
-aws s3 cp s3://braketnotebookcdk-notebooklccs3bucketb3089b50-1w1epzvg1km1k/notebook/braket-notebook-lcc.zip .
-unzip braket-notebook-lcc.zip
-rm braket-notebook-lcc.zip
+AWS_CMD="aws"
+if [[ -n $PROFILE ]]; then
+  AWS_CMD="aws --profile $PROFILE"
+fi
 
-docker build -t qc-batch-experiment .
-cd ..
-rm -rf braket_install
+create_repo () {
+  name=$1
+  region=$2
+  public_access=$3
+
+  echo "create_repo() - name: $name, region: $region, public_access: $public_access"
+
+  $AWS_CMD ecr create-repository  \
+  --repository-name $name \
+  --image-scanning-configuration scanOnPush=true \
+  --region $region >/dev/null 2>&1 || true
+
+  if [[ $public_access -eq '1' ]]; then
+       $AWS_CMD ecr set-repository-policy  --repository-name $name --region $region --policy-text \
+       '{
+         "Version": "2008-10-17",
+         "Statement": [
+             {
+                 "Sid": "AllowPull",
+                 "Effect": "Allow",
+                 "Principal": "*",
+                 "Action": [
+                     "ecr:GetDownloadUrlForLayer",
+                     "ecr:BatchGetImage"
+                 ]
+             }
+         ]
+       }'
+  fi
+}
+
+create_repo $repo_name $REGION 1
+
+account_id=$($AWS_CMD sts get-caller-identity --query Account --output text)
+
+account_ecr_uri=${account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com
+
+IMAGEURI=${account_ecr_uri}/$repo_name:latest
+
+docker tag $repo_name ${IMAGEURI}
+
+echo ${IMAGEURI}
+
+$AWS_CMD ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${account_ecr_uri}
+
+echo ">> push ${IMAGEURI}"
+
+docker push ${IMAGEURI}
+
+
