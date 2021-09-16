@@ -17,16 +17,21 @@ logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:
 
 DEFAULT_DEVICE_ARN = 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1'
 DEFAULT_M = 4
+DEFAULT_AWS_REGION = 'us-east-1'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--M', type=int, default=DEFAULT_M)
 parser.add_argument('--device-arn', type=str, default=DEFAULT_DEVICE_ARN)
+parser.add_argument('--aws-region', type=str, default=DEFAULT_AWS_REGION)
+
+
 args, _ = parser.parse_known_args()
 
 M = args.M
 device_arn = args.device_arn
+aws_region = args.aws_region
 
-logging.info("M: {}, device_arn: {}".format(M, device_arn))
+logging.info("aws_region: {}, M: {}, device_arn: {}".format(aws_region, M, device_arn))
 
 def residue_func(row):
     return row['residue_name'] + '_' + str(row['residue_number'])
@@ -419,15 +424,14 @@ response_aggregate = response.aggregate()
 
 account_id = boto3.client('sts').get_caller_identity().get('Account')
 session = boto3.session.Session()
-aws_region = session.region_name
 
 logging.info("account_id:{}, aws_region:{}".format(account_id, aws_region))
 
 my_bucket = "amazon-braket-gcrqc-{}-{}".format(account_id, aws_region)  # the name of the bucket
 my_prefix = "annealer-experiment"  # the name of the folder in the bucket
-logging.info("my_bucket:", my_bucket)
-
 s3_folder = (my_bucket, my_prefix)
+
+logging.info("s3_folder: s3://{}/{}".format(my_bucket, my_prefix))
 
 # set parameters
 num_reads = n_q
