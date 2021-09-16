@@ -4,6 +4,7 @@ import botocore
 import boto3
 import dimod
 import numpy as np
+from braket.aws import AwsSession, AwsDevice
 from braket.ocean_plugin import BraketDWaveSampler
 from dwave.system.composites import EmbeddingComposite
 # experiment for biopandas
@@ -439,10 +440,9 @@ start = time.time()
 # run BQM: solve with the D-Wave 2000Q device
 # sampler = BraketDWaveSampler(s3_folder,'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6')
 
-botocore_session = botocore.session.Session()
-boto3.setup_default_session(botocore_session=botocore_session)
 
-aws_session = boto3.session.Session(region_name=aws_region, botocore_session=botocore_session)
+boto_sess = boto3.Session(region_name=aws_region)
+aws_session = AwsSession(boto_session=boto_sess)
 
 sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=aws_session)
 end = time.time()
