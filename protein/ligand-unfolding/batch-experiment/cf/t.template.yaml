@@ -1,0 +1,25 @@
+  #M#x#D#x#E#:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      RoleArn: !GetAtt StepFuncsRole.Arn
+      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-#M#_#D#_#E#
+      DefinitionString: !Sub |
+        {
+          "StartAt": "#M#_#D#_#E#",
+          "States": {
+            "#M#_#D#_#E#": {
+              "Type": "Task",
+              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+              "Parameters": {
+                "Input": {
+                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
+                  "ContainerArguments.$": "States.Array('--M', '#M_V#', '--device-arn', '#D_V#', '--aws-region', '${AWS::Region}')",
+                  "InstanceType": "#E_V#"
+                },
+                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
+                "Name.$": "States.Format('#M#-#D#-#E#-{}', $$.Execution.Name)"
+              },
+              "End": true
+            }
+          }
+        }

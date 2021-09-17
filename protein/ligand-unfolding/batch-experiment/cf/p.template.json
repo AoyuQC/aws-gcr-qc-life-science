@@ -1,0 +1,12 @@
+{
+  "StartAt": "Batch Experiment",
+  "States": {
+    "Batch Experiment": {
+      "Type": "Parallel",
+      "Branches": [
+        #B#
+      ],
+      "End": true
+    }
+  }
+}
