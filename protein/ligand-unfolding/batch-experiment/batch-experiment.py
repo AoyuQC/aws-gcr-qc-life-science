@@ -172,7 +172,8 @@ for k, v in atom_number_min.items():
         torsion_group[max_candidate] = torsion_name
 
 sort_torsion_group = sorted(torsion_group.items())
-sort_torsion_group
+
+logging.info("sort_torsion_group={}".format(len(sort_torsion_group)))
 
 # construct fragment group
 fragment_group = {}
