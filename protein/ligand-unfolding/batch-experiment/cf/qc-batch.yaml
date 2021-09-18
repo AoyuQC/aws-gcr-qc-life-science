@@ -8,6 +8,12 @@ Parameters:
     Type: String
     Default: HCLS
 
+#  ImageUri:
+#    Type: String
+#    Default: 522244679887.dkr.ecr.us-east-1.amazonaws.com/qc-batch-experiment
+#    "ImageUri": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/qc-batch-experiment:latest",
+
+
 Resources:
   StepFuncsRole:
     Type: "AWS::IAM::Role"
@@ -65,7 +71,7 @@ Resources:
               "Resource": "arn:${AWS::Partition}:states:::sagemaker:createProcessingJob.sync",
               "Parameters": {
                 "AppSpecification": {
-                  "ImageUri": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/qc-batch-experiment:latest",
+                  "ImageUri": "522244679887.dkr.ecr.${AWS::Region}.amazonaws.com/qc-batch-experiment:latest",
                   "ContainerArguments.$": "$.ContainerArguments"
                 },
                 "ProcessingResources": {
@@ -1139,6 +1145,172 @@ Resources:
           }
         }
 
+  M1xDW2000Q6:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M1_DW2000Q6
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M1_DW2000Q6",
+            "States": {
+              "M1_DW2000Q6": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M1_DW2000Q6_C5XLARGE",
+                    "States": {
+                      "M1_DW2000Q6_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_DW2000Q6_C52XLARGE",
+                    "States": {
+                      "M1_DW2000Q6_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_DW2000Q6_M54XLARGE",
+                    "States": {
+                      "M1_DW2000Q6_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_DW2000Q6_C54XLARGE",
+                    "States": {
+                      "M1_DW2000Q6_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_DW2000Q6_R512XLARGE",
+                    "States": {
+                      "M1_DW2000Q6_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
+
+  M1xAdvantS1:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M1_AdvantS1
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M1_AdvantS1",
+            "States": {
+              "M1_AdvantS1": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M1_AdvantS1_C5XLARGE",
+                    "States": {
+                      "M1_AdvantS1_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_AdvantS1_C52XLARGE",
+                    "States": {
+                      "M1_AdvantS1_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_AdvantS1_M54XLARGE",
+                    "States": {
+                      "M1_AdvantS1_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_AdvantS1_C54XLARGE",
+                    "States": {
+                      "M1_AdvantS1_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M1_AdvantS1_R512XLARGE",
+                    "States": {
+                      "M1_AdvantS1_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
+
   M1:
     Type: AWS::StepFunctions::StateMachine
     Properties:
@@ -1155,74 +1327,11 @@ Resources:
                   "StartAt": "M1_DW2000Q6",
                   "States": {
                     "M1_DW2000Q6": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M1_DW2000Q6_C5XLARGE",
-                          "States": {
-                            "M1_DW2000Q6_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_DW2000Q6_C52XLARGE",
-                          "States": {
-                            "M1_DW2000Q6_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_DW2000Q6_M54XLARGE",
-                          "States": {
-                            "M1_DW2000Q6_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_DW2000Q6_C54XLARGE",
-                          "States": {
-                            "M1_DW2000Q6_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_DW2000Q6_R512XLARGE",
-                          "States": {
-                            "M1_DW2000Q6_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6"
+                      },
                       "End": true
                     }
                   }
@@ -1231,74 +1340,11 @@ Resources:
                   "StartAt": "M1_AdvantS1",
                   "States": {
                     "M1_AdvantS1": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M1_AdvantS1_C5XLARGE",
-                          "States": {
-                            "M1_AdvantS1_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_AdvantS1_C52XLARGE",
-                          "States": {
-                            "M1_AdvantS1_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_AdvantS1_M54XLARGE",
-                          "States": {
-                            "M1_AdvantS1_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_AdvantS1_C54XLARGE",
-                          "States": {
-                            "M1_AdvantS1_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M1_AdvantS1_R512XLARGE",
-                          "States": {
-                            "M1_AdvantS1_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1"
+                      },
                       "End": true
                     }
                   }
@@ -1308,6 +1354,173 @@ Resources:
             }
           }
         }
+
+
+  M2xDW2000Q6:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M2_DW2000Q6
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M2_DW2000Q6",
+            "States": {
+              "M2_DW2000Q6": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M2_DW2000Q6_C5XLARGE",
+                    "States": {
+                      "M2_DW2000Q6_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_DW2000Q6_C52XLARGE",
+                    "States": {
+                      "M2_DW2000Q6_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_DW2000Q6_M54XLARGE",
+                    "States": {
+                      "M2_DW2000Q6_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_DW2000Q6_C54XLARGE",
+                    "States": {
+                      "M2_DW2000Q6_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_DW2000Q6_R512XLARGE",
+                    "States": {
+                      "M2_DW2000Q6_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
+
+  M2xAdvantS1:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M2_AdvantS1
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M2_AdvantS1",
+            "States": {
+              "M2_AdvantS1": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M2_AdvantS1_C5XLARGE",
+                    "States": {
+                      "M2_AdvantS1_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_AdvantS1_C52XLARGE",
+                    "States": {
+                      "M2_AdvantS1_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_AdvantS1_M54XLARGE",
+                    "States": {
+                      "M2_AdvantS1_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_AdvantS1_C54XLARGE",
+                    "States": {
+                      "M2_AdvantS1_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M2_AdvantS1_R512XLARGE",
+                    "States": {
+                      "M2_AdvantS1_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
 
   M2:
     Type: AWS::StepFunctions::StateMachine
@@ -1325,74 +1538,11 @@ Resources:
                   "StartAt": "M2_DW2000Q6",
                   "States": {
                     "M2_DW2000Q6": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M2_DW2000Q6_C5XLARGE",
-                          "States": {
-                            "M2_DW2000Q6_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_DW2000Q6_C52XLARGE",
-                          "States": {
-                            "M2_DW2000Q6_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_DW2000Q6_M54XLARGE",
-                          "States": {
-                            "M2_DW2000Q6_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_DW2000Q6_C54XLARGE",
-                          "States": {
-                            "M2_DW2000Q6_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_DW2000Q6_R512XLARGE",
-                          "States": {
-                            "M2_DW2000Q6_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6"
+                      },
                       "End": true
                     }
                   }
@@ -1401,74 +1551,11 @@ Resources:
                   "StartAt": "M2_AdvantS1",
                   "States": {
                     "M2_AdvantS1": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M2_AdvantS1_C5XLARGE",
-                          "States": {
-                            "M2_AdvantS1_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_AdvantS1_C52XLARGE",
-                          "States": {
-                            "M2_AdvantS1_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_AdvantS1_M54XLARGE",
-                          "States": {
-                            "M2_AdvantS1_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_AdvantS1_C54XLARGE",
-                          "States": {
-                            "M2_AdvantS1_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M2_AdvantS1_R512XLARGE",
-                          "States": {
-                            "M2_AdvantS1_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1"
+                      },
                       "End": true
                     }
                   }
@@ -1479,6 +1566,173 @@ Resources:
           }
         }
 
+
+  M3xDW2000Q6:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M3_DW2000Q6
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M3_DW2000Q6",
+            "States": {
+              "M3_DW2000Q6": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M3_DW2000Q6_C5XLARGE",
+                    "States": {
+                      "M3_DW2000Q6_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_DW2000Q6_C52XLARGE",
+                    "States": {
+                      "M3_DW2000Q6_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_DW2000Q6_M54XLARGE",
+                    "States": {
+                      "M3_DW2000Q6_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_DW2000Q6_C54XLARGE",
+                    "States": {
+                      "M3_DW2000Q6_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_DW2000Q6_R512XLARGE",
+                    "States": {
+                      "M3_DW2000Q6_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
+
+
+  M3xAdvantS1:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M3_AdvantS1
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M3_AdvantS1",
+            "States": {
+              "M3_AdvantS1": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M3_AdvantS1_C5XLARGE",
+                    "States": {
+                      "M3_AdvantS1_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_AdvantS1_C52XLARGE",
+                    "States": {
+                      "M3_AdvantS1_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_AdvantS1_M54XLARGE",
+                    "States": {
+                      "M3_AdvantS1_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_AdvantS1_C54XLARGE",
+                    "States": {
+                      "M3_AdvantS1_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M3_AdvantS1_R512XLARGE",
+                    "States": {
+                      "M3_AdvantS1_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
 
   M3:
     Type: AWS::StepFunctions::StateMachine
@@ -1496,74 +1750,11 @@ Resources:
                   "StartAt": "M3_DW2000Q6",
                   "States": {
                     "M3_DW2000Q6": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M3_DW2000Q6_C5XLARGE",
-                          "States": {
-                            "M3_DW2000Q6_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_DW2000Q6_C52XLARGE",
-                          "States": {
-                            "M3_DW2000Q6_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_DW2000Q6_M54XLARGE",
-                          "States": {
-                            "M3_DW2000Q6_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_DW2000Q6_C54XLARGE",
-                          "States": {
-                            "M3_DW2000Q6_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_DW2000Q6_R512XLARGE",
-                          "States": {
-                            "M3_DW2000Q6_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6"
+                      },
                       "End": true
                     }
                   }
@@ -1572,74 +1763,11 @@ Resources:
                   "StartAt": "M3_AdvantS1",
                   "States": {
                     "M3_AdvantS1": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M3_AdvantS1_C5XLARGE",
-                          "States": {
-                            "M3_AdvantS1_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_AdvantS1_C52XLARGE",
-                          "States": {
-                            "M3_AdvantS1_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_AdvantS1_M54XLARGE",
-                          "States": {
-                            "M3_AdvantS1_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_AdvantS1_C54XLARGE",
-                          "States": {
-                            "M3_AdvantS1_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M3_AdvantS1_R512XLARGE",
-                          "States": {
-                            "M3_AdvantS1_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1"
+                      },
                       "End": true
                     }
                   }
@@ -1649,6 +1777,173 @@ Resources:
             }
           }
         }
+
+
+  M4xDW2000Q6:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M4_DW2000Q6
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M4_DW2000Q6",
+            "States": {
+              "M4_DW2000Q6": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M4_DW2000Q6_C5XLARGE",
+                    "States": {
+                      "M4_DW2000Q6_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_DW2000Q6_C52XLARGE",
+                    "States": {
+                      "M4_DW2000Q6_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_DW2000Q6_M54XLARGE",
+                    "States": {
+                      "M4_DW2000Q6_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_DW2000Q6_C54XLARGE",
+                    "States": {
+                      "M4_DW2000Q6_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_DW2000Q6_R512XLARGE",
+                    "States": {
+                      "M4_DW2000Q6_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
+
+  M4xAdvantS1:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M4_AdvantS1
+        DefinitionString: !Sub |
+          {
+            "StartAt": "M4_AdvantS1",
+            "States": {
+              "M4_AdvantS1": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "M4_AdvantS1_C5XLARGE",
+                    "States": {
+                      "M4_AdvantS1_C5XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_C5XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_AdvantS1_C52XLARGE",
+                    "States": {
+                      "M4_AdvantS1_C52XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_C52XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_AdvantS1_M54XLARGE",
+                    "States": {
+                      "M4_AdvantS1_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_AdvantS1_C54XLARGE",
+                    "States": {
+                      "M4_AdvantS1_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "M4_AdvantS1_R512XLARGE",
+                    "States": {
+                      "M4_AdvantS1_R512XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_R512XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
 
   M4:
     Type: AWS::StepFunctions::StateMachine
@@ -1666,74 +1961,11 @@ Resources:
                   "StartAt": "M4_DW2000Q6",
                   "States": {
                     "M4_DW2000Q6": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M4_DW2000Q6_C5XLARGE",
-                          "States": {
-                            "M4_DW2000Q6_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_DW2000Q6_C52XLARGE",
-                          "States": {
-                            "M4_DW2000Q6_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_DW2000Q6_M54XLARGE",
-                          "States": {
-                            "M4_DW2000Q6_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_DW2000Q6_C54XLARGE",
-                          "States": {
-                            "M4_DW2000Q6_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_DW2000Q6_R512XLARGE",
-                          "States": {
-                            "M4_DW2000Q6_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6"
+                      },
                       "End": true
                     }
                   }
@@ -1742,74 +1974,11 @@ Resources:
                   "StartAt": "M4_AdvantS1",
                   "States": {
                     "M4_AdvantS1": {
-                      "Type": "Parallel",
-                      "Branches": [
-                        {
-                          "StartAt": "M4_AdvantS1_C5XLARGE",
-                          "States": {
-                            "M4_AdvantS1_C5XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_C5XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_AdvantS1_C52XLARGE",
-                          "States": {
-                            "M4_AdvantS1_C52XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_C52XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_AdvantS1_M54XLARGE",
-                          "States": {
-                            "M4_AdvantS1_M54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_M54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_AdvantS1_C54XLARGE",
-                          "States": {
-                            "M4_AdvantS1_C54XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_C54XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        },
-                        {
-                          "StartAt": "M4_AdvantS1_R512XLARGE",
-                          "States": {
-                            "M4_AdvantS1_R512XLARGE": {
-                              "Type": "Task",
-                              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                              "Parameters": {
-                                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_R512XLARGE"
-                              },
-                              "End": true
-                            }
-                          }
-                        }
-                      ],
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1"
+                      },
                       "End": true
                     }
                   }
@@ -1819,7 +1988,6 @@ Resources:
             }
           }
         }
-
 
   BatchExperiment:
     Type: AWS::StepFunctions::StateMachine
@@ -1905,9 +2073,6 @@ Resources:
             }
           }
         }
-
-
-
 Outputs:
   BatchExperimentStepFunctions:
     Description: Batch Experiment StepFunctions
