@@ -1908,3 +1908,23 @@ Resources:
 
 
 
+Outputs:
+  BatchExperiment StepFunctions:
+    Description: Batch Experiment StepFunctions Arn
+    Value: !Ref BatchExperiment
+
+  M1 StepFunctions:
+    Description: M1 StepFunctions Arn
+    Value: !Ref M1
+
+  M2 StepFunctions:
+    Description: M2 StepFunctions Arn
+    Value: !Ref M2
+
+  M3 StepFunctions:
+    Description: M3 StepFunctions Arn
+    Value: !Ref M3
+
+  M4 StepFunctions:
+    Description: M4 StepFunctions Arn
+    Value: !Ref M4
