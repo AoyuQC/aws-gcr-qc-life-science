@@ -9,6 +9,8 @@ if [[ -n $PROFILE ]];then
   CDK_CMD="cdk --profile $PROFILE"
 fi
 
+echo "AWS_CMD: $AWS_CMD"
+
 $CDK_CMD synth > gcr-sol-qc.yaml
 $AWS_CMD s3 cp ./gcr-sol-qc.yaml s3://aws-gcr-rs-sol-workshop-ap-northeast-1-common/qc/ --acl public-read
 
