@@ -14,9 +14,9 @@ $AWS_CMD s3 cp ./qc-batch.yaml s3://aws-gcr-rs-sol-workshop-ap-northeast-1-commo
 if [[ -n $ReleaseVersion ]];then
   $AWS_CMD s3 cp ./qc-batch.yaml s3://aws-gcr-rs-sol-workshop-ap-northeast-1-common/qc/qc-batch-$ReleaseVersion.yaml --acl public-read
   echo ""
-  echo "https://aws-gcr-rs-sol-workshop-ap-northeast-1-common.s3.ap-northeast-1.amazonaws.com/qc/gcr-sol-qc-$ReleaseVersion.yaml"
+  echo "https://aws-gcr-rs-sol-workshop-ap-northeast-1-common.s3.ap-northeast-1.amazonaws.com/qc/qc-batch-$ReleaseVersion.yaml"
 fi
 
 echo ""
-echo "https://aws-gcr-rs-sol-workshop-ap-northeast-1-common.s3.ap-northeast-1.amazonaws.com/qc/gcr-sol-qc.yaml"
+echo "https://aws-gcr-rs-sol-workshop-ap-northeast-1-common.s3.ap-northeast-1.amazonaws.com/qc/qc-batch.yaml"
 echo ""
