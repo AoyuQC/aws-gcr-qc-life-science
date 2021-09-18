@@ -1,5 +1,7 @@
 #!/bin/bash 
 
+ReleaseVersion=$1
+
 cdk --profile rsops synth > gcr-sol-qc.yaml
 aws --profile rsops s3 cp ./gcr-sol-qc.yaml s3://aws-gcr-rs-sol-workshop-ap-northeast-1-common/qc/ --acl public-read
 
