@@ -1910,21 +1910,21 @@ Resources:
 
 Outputs:
   BatchExperimentStepFunctions:
-    Description: Batch Experiment StepFunctions Arn
-    Value: !Ref BatchExperiment
+    Description: Batch Experiment StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref BatchExperiment ]]
 
   M1StepFunctions:
-    Description: M1 StepFunctions Arn
-    Value: !Ref M1
+    Description: M1 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M1 ]]
 
   M2StepFunctions:
-    Description: M2 StepFunctions Arn
-    Value: !Ref M2
+    Description: M2 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M2 ]]
 
   M3StepFunctions:
-    Description: M3 StepFunctions Arn
-    Value: !Ref M3
+    Description: M3 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M3 ]]
 
   M4StepFunctions:
-    Description: M4 StepFunctions Arn
-    Value: !Ref M4
+    Description: M4 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M4 ]]
