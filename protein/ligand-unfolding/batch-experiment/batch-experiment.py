@@ -110,7 +110,7 @@ def rount_list(l):
 
 
 def string_to_s3(content):
-    file_name = "T{}_M{}_D{}_{}_{}".format().format(timestamp, M, D, device_name, instance_type)
+    file_name = "T{}_M{}_D{}_{}_{}".format(timestamp, M, D, device_name, instance_type)
     key = "{}/{}".format(my_prefix, file_name)
     s3 = boto3.client('s3')
     s3.put_object(
