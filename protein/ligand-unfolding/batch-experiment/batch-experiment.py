@@ -114,7 +114,7 @@ def string_to_s3(content):
     key = "{}/{}".format(my_prefix, file_name)
     s3 = boto3.client('s3')
     s3.put_object(
-        Body=io.StringIO(content),
+        Body=content.encode("utf-8"),
         Bucket=my_bucket,
         Key=key
     )
