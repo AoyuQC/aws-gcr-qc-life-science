@@ -63,6 +63,7 @@ for M in ${Ms[@]}; do
             --app-specification "ImageUri=${IMAGEURI},ContainerArguments=--instance-type,${instanceType},--M,${M},--D,${D},--device-arn,${deviceArn},--aws-region,${awsRegion}"
 
           echo ""
+          sleep 10
       done
     done
   done
