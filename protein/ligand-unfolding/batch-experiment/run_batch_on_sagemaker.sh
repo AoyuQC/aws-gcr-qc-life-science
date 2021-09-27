@@ -39,8 +39,8 @@ deviceArns=(
 
 instanceTypes=(
   ml.c5.xlarge
+  ml.c5.2xlarge
   ml.c5.4xlarge
-  ml.m5.4xlarge
   ml.r5.12xlarge
 )
 

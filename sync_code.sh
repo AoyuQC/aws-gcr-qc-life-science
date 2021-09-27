@@ -1,6 +1,7 @@
 #!/bin/bash
 #set -e
 
+
 ReleaseVersion=$1
 
 CURRDIR="$(pwd)/.."
@@ -15,6 +16,7 @@ fi
 
 
 cd $CURRDIR/aws-gcr-qc-life-science/
+git pull
 
 if [[ -n $ReleaseVersion ]];then
   if git tag -a $ReleaseVersion -m "new release $ReleaseVersion"; then
@@ -41,6 +43,7 @@ cd $CURRDIR/aws-gcr-qc-life-science/protein/ligand-unfolding/batch-experiment/cf
 ./cf_to_s3.sh $ReleaseVersion
 
 cd $CURRDIR/aws-gcr-qc-life-science-public/
+git pull
 
 pwd
 
