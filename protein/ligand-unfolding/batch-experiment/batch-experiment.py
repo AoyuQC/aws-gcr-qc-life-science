@@ -42,7 +42,7 @@ instance_type = not args.instance_type
 
 logging.info("aws_region: {}, M: {}, D: {}, device_arn: {}".format(aws_region, M, D, device_arn))
 
-device_name = device_arn.splt("/")[-1]
+device_name = device_arn.split("/")[-1]
 
 content_prefix = "{},{},{},{}".format().format(M, D, device_name, instance_type)
 
