@@ -1,5 +1,5 @@
 repo_name='qc-batch-experiment'
-docker build -t $repo_name .
+git pull && docker build -t $repo_name .
 
 if [[ -z $REGION ]]; then
   REGION='us-east-1'
