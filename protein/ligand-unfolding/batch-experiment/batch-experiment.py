@@ -38,9 +38,9 @@ M = args.M
 D = args.D
 device_arn = args.device_arn
 aws_region = args.aws_region
-instance_type = not args.instance_type
+instance_type = args.instance_type
 
-logging.info("aws_region: {}, M: {}, D: {}, device_arn: {}".format(aws_region, M, D, device_arn))
+logging.info("aws_region: {}, M: {}, D: {}, device_arn: {}, instance_type: {}".format(aws_region, M, D, device_arn, instance_type))
 
 device_name = device_arn.split("/")[-1]
 
