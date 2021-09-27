@@ -44,7 +44,7 @@ logging.info("aws_region: {}, M: {}, D: {}, device_arn: {}".format(aws_region, M
 
 device_name = device_arn.split("/")[-1]
 
-content_prefix = "{},{},{},{}".format().format(M, D, device_name, instance_type)
+content_prefix = "{},{},{},{}".format(M, D, device_name, instance_type)
 
 account_id = boto3.client('sts').get_caller_identity().get('Account')
 
