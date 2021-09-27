@@ -120,7 +120,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -146,7 +146,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -172,7 +172,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -198,7 +198,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -224,7 +224,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -250,7 +250,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -276,7 +276,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -302,7 +302,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -328,7 +328,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -354,7 +354,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -380,7 +380,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -406,7 +406,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -432,7 +432,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -458,7 +458,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -484,7 +484,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -510,7 +510,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -536,7 +536,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -562,7 +562,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -588,7 +588,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -614,7 +614,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -640,7 +640,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -666,7 +666,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -692,7 +692,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -718,7 +718,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -744,7 +744,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -770,7 +770,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -796,7 +796,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -822,7 +822,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -848,7 +848,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -874,7 +874,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -900,7 +900,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -926,7 +926,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -952,7 +952,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -978,7 +978,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -1004,7 +1004,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -1030,7 +1030,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -1056,7 +1056,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.2xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.2xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -1082,7 +1082,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.m5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -1108,7 +1108,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.c5.4xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
@@ -1134,7 +1134,7 @@ Resources:
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.r5.12xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "ml.r5.12xlarge"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",

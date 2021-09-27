@@ -9,27 +9,42 @@ from biopandas.pdb import PandasPdb
 from braket.aws import AwsSession
 from braket.ocean_plugin import BraketDWaveSampler
 from dwave.system.composites import EmbeddingComposite
+import time
+import io
 
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
                     datefmt='%Y-%m-%d:%H:%M:%S',
                     level=logging.INFO)
 
+timestamp=int(time.time())
+
+sum_log = []
+
 DEFAULT_DEVICE_ARN = 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1'
 DEFAULT_M = 4
+DEFAULT_D = 4
 DEFAULT_AWS_REGION = 'us-east-1'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--M', type=int, default=DEFAULT_M)
+parser.add_argument('--D', type=int, default=DEFAULT_D)
 parser.add_argument('--device-arn', type=str, default=DEFAULT_DEVICE_ARN)
 parser.add_argument('--aws-region', type=str, default=DEFAULT_AWS_REGION)
+parser.add_argument('--instance-type', type=str, default="EC2")
 
 args, _ = parser.parse_known_args()
 
 M = args.M
+D = args.D
 device_arn = args.device_arn
 aws_region = args.aws_region
+instance_type = not args.instance_type
 
-logging.info("aws_region: {}, M: {}, device_arn: {}".format(aws_region, M, device_arn))
+logging.info("aws_region: {}, M: {}, D: {}, device_arn: {}".format(aws_region, M, D, device_arn))
+
+device_name = device_arn.splt("/")[-1]
+
+content_prefix = "{},{},{},{}".format().format(M, D, device_name, instance_type)
 
 account_id = boto3.client('sts').get_caller_identity().get('Account')
 
@@ -65,10 +80,12 @@ ligand_pddf.head()
 n_c = 1000
 # num shots for quantum
 n_q = 1000
+
+
 # M = len(sort_torsion_group)
 # M = 4
 # resolution = 360/8
-D = 8
+# D = 8
 
 
 def sub_list(l1, l2):
@@ -90,6 +107,19 @@ def rount_list(l):
     for n in l:
         result.append(round(n, 4))
     return result
+
+
+def string_to_s3(content):
+    file_name = "T{}_M{}_D{}_{}_{}".format().format(timestamp, M, D, device_name, instance_type)
+    key = "{}/{}".format(my_prefix, file_name)
+    s3 = boto3.client('s3')
+    s3.put_object(
+        Body=io.StringIO(content),
+        Bucket=my_bucket,
+        Key=key
+    )
+    logging.info("put file s3://{}/{}".format(my_bucket, key))
+
 
 
 """
@@ -480,3 +510,7 @@ t_sum_quantum = t1 + t2 + t3
 
 logging.info("the sum time for sa {}".format(t_sum_classic))
 logging.info("the sum time for qa {}".format(t_sum_quantum))
+sum_log.append("{},sa,{}".format(content_prefix, t_sum_classic))
+sum_log.append("{},qa,{}".format(content_prefix, t_sum_quantum))
+string_to_s3("\n".join(sum_log))
+
