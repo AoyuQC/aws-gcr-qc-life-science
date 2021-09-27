@@ -23,10 +23,9 @@ repo_name=qc-batch-experiment
 
 IMAGEURI=${account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com/${repo_name}:latest
 
-
 # arn:aws:iam::080766874269:role/qcBatch-HCLS-SageMakerRole-us-east-1
 SM_ROLE=arn:aws:iam::${account_id}:role/qcBatch-HCLS-SageMakerRole-${AWS_REGION}
-
+awsRegion=$AWS_REGION
 
 # "ContainerArguments.$": "States.Array('--instance-type', '', '--M', '1', '--device-arn', '', '--aws-region', '${AWS::Region}')",
 
@@ -34,7 +33,6 @@ instanceType=ml.c5.xlarge
 M=1
 D=4
 deviceArn=arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6
-awsRegion=$AWS_REGION
 
 deviceName=$(echo $deviceArn | egrep -o "[^/]+$")
 
