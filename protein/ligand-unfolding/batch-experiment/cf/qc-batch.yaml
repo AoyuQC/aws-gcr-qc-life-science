@@ -157,31 +157,7 @@ Resources:
           }
         }
 
-  M1xDW2000Q6xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M1_DW2000Q6_M54XLARGE",
-          "States": {
-            "M1_DW2000Q6_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M1-DW2000Q6-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
+
 
   M1xDW2000Q6xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -287,31 +263,6 @@ Resources:
           }
         }
 
-  M2xDW2000Q6xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M2_DW2000Q6_M54XLARGE",
-          "States": {
-            "M2_DW2000Q6_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M2-DW2000Q6-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
 
   M2xDW2000Q6xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -417,31 +368,6 @@ Resources:
           }
         }
 
-  M3xDW2000Q6xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M3_DW2000Q6_M54XLARGE",
-          "States": {
-            "M3_DW2000Q6_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M3-DW2000Q6-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
 
   M3xDW2000Q6xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -547,31 +473,7 @@ Resources:
           }
         }
 
-  M4xDW2000Q6xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M4_DW2000Q6_M54XLARGE",
-          "States": {
-            "M4_DW2000Q6_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M4-DW2000Q6-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
+
 
   M4xDW2000Q6xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -677,31 +579,7 @@ Resources:
           }
         }
 
-  M1xAdvantS1xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M1_AdvantS1_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M1_AdvantS1_M54XLARGE",
-          "States": {
-            "M1_AdvantS1_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.c5.4xlarge', '--M', '1', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M1-AdvantS1-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
+
 
   M1xAdvantS1xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -807,31 +685,7 @@ Resources:
           }
         }
 
-  M2xAdvantS1xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M2_AdvantS1_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M2_AdvantS1_M54XLARGE",
-          "States": {
-            "M2_AdvantS1_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '2', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M2-AdvantS1-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
+
 
   M2xAdvantS1xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -937,31 +791,7 @@ Resources:
           }
         }
 
-  M3xAdvantS1xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M3_AdvantS1_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M3_AdvantS1_M54XLARGE",
-          "States": {
-            "M3_AdvantS1_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '3', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M3-AdvantS1-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
+
 
   M3xAdvantS1xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -1067,31 +897,7 @@ Resources:
           }
         }
 
-  M4xAdvantS1xM54XLARGE:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      RoleArn: !GetAtt StepFuncsRole.Arn
-      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-M4_AdvantS1_M54XLARGE
-      DefinitionString: !Sub |
-        {
-          "StartAt": "M4_AdvantS1_M54XLARGE",
-          "States": {
-            "M4_AdvantS1_M54XLARGE": {
-              "Type": "Task",
-              "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-              "Parameters": {
-                "Input": {
-                  "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--instance-type', 'ml.m5.4xlarge', '--M', '4', '--device-arn', 'arn:aws:braket:::device/qpu/d-wave/Advantage_system1', '--aws-region', '${AWS::Region}')",
-                  "InstanceType": "ml.m5.4xlarge"
-                },
-                "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",
-                "Name.$": "States.Format('M4-AdvantS1-M54XLARGE-{}', $$.Execution.Name)"
-              },
-              "End": true
-            }
-          }
-        }
+
 
   M4xAdvantS1xC54XLARGE:
     Type: AWS::StepFunctions::StateMachine
@@ -1184,19 +990,6 @@ Resources:
                     }
                   },
                   {
-                    "StartAt": "M1_DW2000Q6_M54XLARGE",
-                    "States": {
-                      "M1_DW2000Q6_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_DW2000Q6_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
-                  {
                     "StartAt": "M1_DW2000Q6_C54XLARGE",
                     "States": {
                       "M1_DW2000Q6_C54XLARGE": {
@@ -1261,19 +1054,6 @@ Resources:
                         "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
                         "Parameters": {
                           "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_C52XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
-                  {
-                    "StartAt": "M1_AdvantS1_M54XLARGE",
-                    "States": {
-                      "M1_AdvantS1_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1_AdvantS1_M54XLARGE"
                         },
                         "End": true
                       }
@@ -1394,19 +1174,7 @@ Resources:
                       }
                     }
                   },
-                  {
-                    "StartAt": "M2_DW2000Q6_M54XLARGE",
-                    "States": {
-                      "M2_DW2000Q6_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_DW2000Q6_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
+
                   {
                     "StartAt": "M2_DW2000Q6_C54XLARGE",
                     "States": {
@@ -1477,19 +1245,7 @@ Resources:
                       }
                     }
                   },
-                  {
-                    "StartAt": "M2_AdvantS1_M54XLARGE",
-                    "States": {
-                      "M2_AdvantS1_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2_AdvantS1_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
+
                   {
                     "StartAt": "M2_AdvantS1_C54XLARGE",
                     "States": {
@@ -1605,19 +1361,7 @@ Resources:
                       }
                     }
                   },
-                  {
-                    "StartAt": "M3_DW2000Q6_M54XLARGE",
-                    "States": {
-                      "M3_DW2000Q6_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_DW2000Q6_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
+
                   {
                     "StartAt": "M3_DW2000Q6_C54XLARGE",
                     "States": {
@@ -1689,19 +1433,7 @@ Resources:
                       }
                     }
                   },
-                  {
-                    "StartAt": "M3_AdvantS1_M54XLARGE",
-                    "States": {
-                      "M3_AdvantS1_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3_AdvantS1_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
+
                   {
                     "StartAt": "M3_AdvantS1_C54XLARGE",
                     "States": {
@@ -1817,19 +1549,7 @@ Resources:
                       }
                     }
                   },
-                  {
-                    "StartAt": "M4_DW2000Q6_M54XLARGE",
-                    "States": {
-                      "M4_DW2000Q6_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_DW2000Q6_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
+
                   {
                     "StartAt": "M4_DW2000Q6_C54XLARGE",
                     "States": {
@@ -1900,19 +1620,7 @@ Resources:
                       }
                     }
                   },
-                  {
-                    "StartAt": "M4_AdvantS1_M54XLARGE",
-                    "States": {
-                      "M4_AdvantS1_M54XLARGE": {
-                        "Type": "Task",
-                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                        "Parameters": {
-                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4_AdvantS1_M54XLARGE"
-                        },
-                        "End": true
-                      }
-                    }
-                  },
+
                   {
                     "StartAt": "M4_AdvantS1_C54XLARGE",
                     "States": {
