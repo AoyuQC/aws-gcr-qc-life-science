@@ -10,7 +10,6 @@ from braket.aws import AwsSession
 from braket.ocean_plugin import BraketDWaveSampler
 from dwave.system.composites import EmbeddingComposite
 import time
-import io
 
 logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s',
                     datefmt='%Y-%m-%d:%H:%M:%S',
