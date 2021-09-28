@@ -462,7 +462,7 @@ end = time.time()
 
 t_sum_classic = (end - start) / 60
 
-logging.info("elasped time for sa of {} shots: {} min".format(num_shots, t_sum_classic))
+logging.info("elapsed time for sa of {} shots: {} min".format(num_shots, t_sum_classic))
 
 response_aggregate = response.aggregate()
 
@@ -480,19 +480,19 @@ start = time.time()
 sampler = BraketDWaveSampler(s3_folder, device_arn, aws_session=aws_session)
 end = time.time()
 t1 = (end - start) / 60
-logging.info("elasped time for init sampler {} min".format(t1))
+logging.info("elapsed time for init sampler {} min".format(t1))
 
 start = time.time()
 sampler = EmbeddingComposite(sampler)
 end = time.time()
 t2 = (end - start) / 60
-logging.info("elasped time for embedding generation {} min".format(t2))
+logging.info("elapsed time for embedding generation {} min".format(t2))
 
 start = time.time()
 sampleset = sampler.sample(qubo, num_reads=num_reads)
 end = time.time()
 t3 = (end - start) / 60
-logging.info("elasped time for d wave of {} shots: {} min".format(num_shots, t3))
+logging.info("elapsed time for d wave of {} shots: {} min".format(num_shots, t3))
 
 t_sum_quantum = t1 + t2 + t3
 
