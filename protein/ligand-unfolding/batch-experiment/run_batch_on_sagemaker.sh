@@ -43,7 +43,11 @@ instanceTypes=(
   ml.r5.4xlarge # 128 GiB of memory, 16 vCPUs,
 )
 
-Ds=(4, 6, 8)
+Ds=(
+ 4
+ 6
+ 8
+)
 
 for M in ${Ms[@]}; do
   for D in ${Ds[@]};do
