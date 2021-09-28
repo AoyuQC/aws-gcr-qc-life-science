@@ -1,0 +1,43 @@
+  #M#:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      RoleArn: !GetAtt StepFuncsRole.Arn
+      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-#M#
+      DefinitionString: !Sub |
+        {
+          "StartAt": "#M#",
+          "States": {
+            "#M#": {
+              "Type": "Parallel",
+              "Branches": [
+                {
+                  "StartAt": "#M#_DW2000Q6",
+                  "States": {
+                    "#M#_DW2000Q6": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-#M#_DW2000Q6"
+                      },
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "#M#_AdvantS1",
+                  "States": {
+                    "#M#_AdvantS1": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-#M#_AdvantS1"
+                      },
+                      "End": true
+                    }
+                  }
+                }
+              ],
+              "End": true
+            }
+          }
+        }

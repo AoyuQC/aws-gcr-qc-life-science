@@ -7,14 +7,16 @@ D_name_map = {
 
 M_values = ["1", "2", "3", "4"]
 
-E_values = ['ml.c5.xlarge', 'ml.c5.2xlarge', 'ml.m5.4xlarge', 'ml.c5.4xlarge', 'ml.r5.12xlarge']
+E_values = ['ml.c5.4xlarge', 'ml.m5.4xlarge', 'ml.r5.4xlarge']
 
 template_t = open("./t.template.yaml", "r").read()
-template_b = open("./b.template.json", "r").read()
-template_p = open("./p.template.json", "r").read()
+template_md = open("./md.template.yaml", "r").read()
+template_m = open("./m.template.yaml", "r").read()
+template_all = open("./a.template.yaml", "r").read()
 
 template_t_out = []
-template_b_out = []
+template_md_out = []
+template_m_out = []
 
 for M in M_values:
     M_name = "M{}".format(M)
@@ -29,12 +31,18 @@ for M in M_values:
             # print("\n\n")
             template_t_out.append(template_t_new)
             job_name = "{}_{}_{}".format(M_name, D_name, E_name)
-            template_b_out.append(template_b.replace("#J#", job_name))
+        template_md_new = template_md.replace("#D#", D_name).replace("#M#", M_name)
+        template_md_out.append(template_md_new)
+    template_m_new = template_m.replace("#M#", M_name)
+    template_m_out.append(template_m_new)
 
-template_p_out = template_p.replace("#B#", ",\n\n".join(template_b_out))
 
-with open("p.json", "w") as out:
-    out.write(template_p_out)
+content = []
+content.extend(template_t_out)
+content.extend(template_md_out)
+content.extend(template_m_out)
 
-with open("t.yaml", "w") as out:
-    out.write("\n\n".join(template_t_out))
+all_content = template_all.replace("#__CONTENT__#", "\n\n".join(content))
+
+with open("qc-batch.g.yaml", "w") as out:
+    out.write(all_content)

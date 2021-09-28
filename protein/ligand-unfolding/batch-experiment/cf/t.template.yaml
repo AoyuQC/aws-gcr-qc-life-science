@@ -13,7 +13,7 @@
               "Parameters": {
                 "Input": {
                   "AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",
-                  "ContainerArguments.$": "States.Array('--M', '#M_V#', '--device-arn', '#D_V#', '--aws-region', '${AWS::Region}')",
+                  "ContainerArguments.$": "States.Array('--instance-type', '#E_V#', '--M', '#M_V#', '--device-arn', '#D_V#', '--aws-region', '${AWS::Region}')",
                   "InstanceType": "#E_V#"
                 },
                 "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc",

@@ -38,13 +38,12 @@ deviceArns=(
 )
 
 instanceTypes=(
-  ml.c5.xlarge
-  ml.c5.2xlarge
-  ml.c5.4xlarge
-  ml.r5.12xlarge
+  ml.m5.4xlarge # 64 GiB of Memory, 16 vCPUs
+  ml.c5.4xlarge # 32 GiB of memory, 16 vCPUs
+  ml.r5.4xlarge # 128 GiB of memory, 16 vCPUs,
 )
 
-Ds=(4)
+Ds=(4, 6, 8)
 
 for M in ${Ms[@]}; do
   for D in ${Ds[@]};do

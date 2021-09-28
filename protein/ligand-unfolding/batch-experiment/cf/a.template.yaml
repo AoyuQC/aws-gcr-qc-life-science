@@ -1,0 +1,218 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  (SO8029) GCR solution: Quantum Computing in HCLS
+
+Parameters:
+  NamePrefix:
+    Type: String
+    Default: HCLS
+
+#  ImageUri:
+#    Type: String
+#    Default: 522244679887.dkr.ecr.us-east-1.amazonaws.com/qc-batch-experiment
+#    "ImageUri": "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/qc-batch-experiment:latest",
+
+
+Resources:
+  StepFuncsRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: !Sub ${AWS::StackName}-${NamePrefix}-StepFuncsRole-${AWS::Region}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - states.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/PowerUserAccess
+      Policies:
+        - PolicyName: role-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: "iam:PassRole"
+                Resource: "*"
+
+  SageMakerRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: !Sub ${AWS::StackName}-${NamePrefix}-SageMakerRole-${AWS::Region}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - sagemaker.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/PowerUserAccess
+
+  SMProcessingStepFunc:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      RoleArn: !GetAtt StepFuncsRole.Arn
+      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-SMProcessingStepFunc
+      DefinitionString: !Sub |
+        {
+          "StartAt": "Run processing",
+          "States": {
+            "Run processing": {
+              "Type": "Task",
+              "Resource": "arn:${AWS::Partition}:states:::sagemaker:createProcessingJob.sync",
+              "Parameters": {
+                "AppSpecification": {
+                  "ImageUri": "522244679887.dkr.ecr.${AWS::Region}.amazonaws.com/qc-batch-experiment:latest",
+                  "ContainerArguments.$": "$.ContainerArguments"
+                },
+                "ProcessingResources": {
+                  "ClusterConfig": {
+                    "InstanceCount": 1,
+                    "InstanceType.$": "$.InstanceType",
+                    "VolumeSizeInGB": 5
+                  }
+                },
+                "RoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/${AWS::StackName}-${NamePrefix}-SageMakerRole-${AWS::Region}",
+                "ProcessingJobName.$": "States.Format('{}', $$.Execution.Name)"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "ThrottlingException",
+                    "SageMaker.AmazonSageMakerException"
+                  ],
+                  "IntervalSeconds": 6,
+                  "MaxAttempts": 5,
+                  "BackoffRate": 2
+                }
+              ],
+              "ResultSelector": {
+                "ProcessingJobName.$": "$.ProcessingJobName",
+                "ProcessingJobStatus.$": "$.ProcessingJobStatus"
+              },
+              "ResultPath": "$.RunProcessing",
+              "End": true
+            }
+          }
+        }
+
+
+##################
+#__CONTENT__#
+##################
+
+
+  BatchExperiment:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      RoleArn: !GetAtt StepFuncsRole.Arn
+      StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-BatchExperiment
+      DefinitionString: !Sub |
+        {
+          "StartAt": "Batch Experiment",
+          "States": {
+            "Batch Experiment": {
+              "Type": "Parallel",
+              "Branches": [
+                {
+                  "StartAt": "Wait 5 Seconds",
+                  "States": {
+                    "Wait 5 Seconds" : {
+                      "Type" : "Wait",
+                      "Seconds" : 5,
+                      "Next": "M1"
+                    },
+                    "M1": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1"
+                      },
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "Wait 15 Seconds",
+                  "States": {
+                    "Wait 15 Seconds" : {
+                      "Type" : "Wait",
+                      "Seconds" : 15,
+                      "Next": "M2"
+                    },
+                    "M2": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2"
+                      },
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "Wait 25 Seconds",
+                  "States": {
+                    "Wait 25 Seconds" : {
+                      "Type" : "Wait",
+                      "Seconds" : 25,
+                      "Next": "M3"
+                    },
+                    "M3": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3"
+                      },
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "M4",
+                  "States": {
+                    "M4": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4"
+                      },
+                      "End": true
+                    }
+                  }
+                }
+              ],
+              "End": true
+            }
+          }
+        }
+
+Outputs:
+  BatchExperimentStepFunctions:
+    Description: Batch Experiment StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref BatchExperiment ]]
+
+  M1StepFunctions:
+    Description: M1 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M1 ]]
+
+  M2StepFunctions:
+    Description: M2 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M2 ]]
+
+  M3StepFunctions:
+    Description: M3 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M3 ]]
+
+  M4StepFunctions:
+    Description: M4 StepFunctions
+    Value: !Join ["", [!Sub "https://console.aws.amazon.com/states/home?region=${AWS::Region}", "#/statemachines/view/", !Ref M4 ]]

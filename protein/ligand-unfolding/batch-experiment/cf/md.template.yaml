@@ -1,0 +1,56 @@
+  #M#x#D#:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+        RoleArn: !GetAtt StepFuncsRole.Arn
+        StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-#M#_#D#
+        DefinitionString: !Sub |
+          {
+            "StartAt": "#M#_#D#",
+            "States": {
+              "#M#_#D#": {
+                "Type": "Parallel",
+                "Branches": [
+                  {
+                    "StartAt": "#M#_#D#_M54XLARGE",
+                    "States": {
+                      "#M#_#D#_M54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-#M#_#D#_M54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "#M#_#D#_C54XLARGE",
+                    "States": {
+                      "#M#_#D#_C54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-#M#_#D#_C54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  },
+                  {
+                    "StartAt": "#M#_#D#_R54XLARGE",
+                    "States": {
+                      "#M#_#D#_R54XLARGE": {
+                        "Type": "Task",
+                        "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                        "Parameters": {
+                          "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-#M#_#D#_R54XLARGE"
+                        },
+                        "End": true
+                      }
+                    }
+                  }
+                ],
+                "End": true
+              }
+            }
+          }
