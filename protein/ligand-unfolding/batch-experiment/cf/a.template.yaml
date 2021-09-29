@@ -118,82 +118,67 @@ Resources:
       StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-BatchExperiment
       DefinitionString: !Sub |
         {
-          "StartAt": "Batch Experiment",
-          "States": {
-            "Batch Experiment": {
-              "Type": "Parallel",
-              "Branches": [
-                {
-                  "StartAt": "Wait 5 Seconds",
-                  "States": {
-                    "Wait 5 Seconds" : {
-                      "Type" : "Wait",
-                      "Seconds" : 5,
-                      "Next": "M1"
-                    },
-                    "M1": {
-                      "Type": "Task",
-                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                      "Parameters": {
-                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1"
-                      },
-                      "End": true
-                    }
-                  }
-                },
-                {
-                  "StartAt": "Wait 15 Seconds",
-                  "States": {
-                    "Wait 15 Seconds" : {
-                      "Type" : "Wait",
-                      "Seconds" : 15,
-                      "Next": "M2"
-                    },
-                    "M2": {
-                      "Type": "Task",
-                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                      "Parameters": {
-                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2"
-                      },
-                      "End": true
-                    }
-                  }
-                },
-                {
-                  "StartAt": "Wait 25 Seconds",
-                  "States": {
-                    "Wait 25 Seconds" : {
-                      "Type" : "Wait",
-                      "Seconds" : 25,
-                      "Next": "M3"
-                    },
-                    "M3": {
-                      "Type": "Task",
-                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                      "Parameters": {
-                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3"
-                      },
-                      "End": true
-                    }
-                  }
-                },
-                {
-                  "StartAt": "M4",
-                  "States": {
-                    "M4": {
-                      "Type": "Task",
-                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                      "Parameters": {
-                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4"
-                      },
-                      "End": true
-                    }
-                  }
+            "StartAt": "Batch Experiment",
+            "States": {
+                "Batch Experiment": {
+                    "Type": "Parallel",
+                    "Branches": [{
+                            "StartAt": "Wait 1 Seconds",
+                            "States": {
+                                "Wait 5 Seconds": {
+                                    "Type": "Wait",
+                                    "Seconds": 1,
+                                    "Next": "M1"
+                                },
+                                "M1": {
+                                    "Type": "Task",
+                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                                    "Parameters": {
+                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1"
+                                    },
+                                    "Next": "M4"
+                                },
+
+                                "M4": {
+                                    "Type": "Task",
+                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                                    "Parameters": {
+                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4"
+                                    },
+                                    "End": true
+                                }
+                            }
+                        },
+                        {
+                            "StartAt": "Wait 5 Seconds",
+                            "States": {
+                                "Wait 5 Seconds": {
+                                    "Type": "Wait",
+                                    "Seconds": 5,
+                                    "Next": "M2"
+                                },
+                                "M2": {
+                                    "Type": "Task",
+                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                                    "Parameters": {
+                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2"
+                                    },
+                                    "Next": "M3"
+                                },
+                                "M3": {
+                                    "Type": "Task",
+                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                                    "Parameters": {
+                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3"
+                                    },
+                                    "End": true
+                                }
+                            }
+                        }
+                    ],
+                    "End": true
                 }
-              ],
-              "End": true
             }
-          }
         }
 
 Outputs:
