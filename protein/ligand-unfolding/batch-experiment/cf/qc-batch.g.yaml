@@ -1379,7 +1379,7 @@ Resources:
                     "Branches": [{
                             "StartAt": "Wait 1 Seconds",
                             "States": {
-                                "Wait 5 Seconds": {
+                                "Wait 1 Seconds": {
                                     "Type": "Wait",
                                     "Seconds": 1,
                                     "Next": "M1"
