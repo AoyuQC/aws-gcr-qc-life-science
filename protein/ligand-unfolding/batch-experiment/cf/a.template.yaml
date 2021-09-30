@@ -57,6 +57,23 @@ Resources:
       ManagedPolicyArns:
         - !Sub arn:${AWS::Partition}:iam::aws:policy/PowerUserAccess
 
+  LambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: !Sub ${AWS::StackName}-${NamePrefix}-LambdaRole-${AWS::Region}
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/PowerUserAccess
+
   SMProcessingStepFunc:
     Type: AWS::StepFunctions::StateMachine
     Properties:
@@ -113,73 +130,179 @@ Resources:
 
   BatchExperiment:
     Type: AWS::StepFunctions::StateMachine
+    DependsOn: AthenaTableLambda
     Properties:
       RoleArn: !GetAtt StepFuncsRole.Arn
       StateMachineName: !Sub ${AWS::StackName}-${NamePrefix}-BatchExperiment
       DefinitionString: !Sub |
         {
-            "StartAt": "Batch Experiment",
-            "States": {
-                "Batch Experiment": {
-                    "Type": "Parallel",
-                    "Branches": [{
-                            "StartAt": "Wait 1 Seconds",
-                            "States": {
-                                "Wait 1 Seconds": {
-                                    "Type": "Wait",
-                                    "Seconds": 1,
-                                    "Next": "M1"
-                                },
-                                "M1": {
-                                    "Type": "Task",
-                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                                    "Parameters": {
-                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1"
-                                    },
-                                    "Next": "M4"
-                                },
+          "StartAt": "Batch Experiment",
+          "States": {
+            "Batch Experiment": {
+              "Type": "Parallel",
+              "Branches": [{
+                  "StartAt": "Wait 1 Seconds",
+                  "States": {
+                    "Wait 1 Seconds": {
+                      "Type": "Wait",
+                      "Seconds": 1,
+                      "Next": "M1"
+                    },
+                    "M1": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M1"
+                      },
+                      "Next": "M4"
+                    },
 
-                                "M4": {
-                                    "Type": "Task",
-                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                                    "Parameters": {
-                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4"
-                                    },
-                                    "End": true
-                                }
-                            }
-                        },
-                        {
-                            "StartAt": "Wait 5 Seconds",
-                            "States": {
-                                "Wait 5 Seconds": {
-                                    "Type": "Wait",
-                                    "Seconds": 5,
-                                    "Next": "M2"
-                                },
-                                "M2": {
-                                    "Type": "Task",
-                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                                    "Parameters": {
-                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2"
-                                    },
-                                    "Next": "M3"
-                                },
-                                "M3": {
-                                    "Type": "Task",
-                                    "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
-                                    "Parameters": {
-                                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3"
-                                    },
-                                    "End": true
-                                }
-                            }
-                        }
-                    ],
-                    "End": true
+                    "M4": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M4"
+                      },
+                      "End": true
+                    }
+                  }
+                },
+                {
+                  "StartAt": "Wait 5 Seconds",
+                  "States": {
+                    "Wait 5 Seconds": {
+                      "Type": "Wait",
+                      "Seconds": 5,
+                      "Next": "M2"
+                    },
+                    "M2": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M2"
+                      },
+                      "Next": "M3"
+                    },
+                    "M3": {
+                      "Type": "Task",
+                      "Resource": "arn:${AWS::Partition}:states:::states:startExecution.sync:2",
+                      "Parameters": {
+                        "StateMachineArn": "arn:${AWS::Partition}:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${AWS::StackName}-${NamePrefix}-M3"
+                      },
+                      "End": true
+                    }
+                  }
                 }
+              ],
+              "Next": "Create Athena Table"
+            },
+            "Create Athena Table": {
+               "Type": "Task",
+              "Resource": "arn:${AWS::Partition}:states:::lambda:invoke",
+              "Parameters": {
+                "FunctionName": "${AWS::StackName}-${NamePrefix}-AthenaTableLambda"
+              },
+              "End": true
             }
+          }
         }
+
+#
+# Lambda
+#
+
+  AthenaTableLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}-${NamePrefix}-AthenaTableLambda
+      Runtime: nodejs14.x
+      Role: !GetAtt LambdaRole.Arn
+      Handler: index.handler
+      Description: Lambda funciton to create table qc_batch_performance_view
+      Timeout: 300
+      Environment:
+        Variables:
+          BUCKET: !Sub amazon-braket-gcrqc-${AWS::AccountId}-${AWS::Region}
+      Code:
+        ZipFile: |
+
+          const AWS = require('aws-sdk')
+          const client = new AWS.Athena({})
+          const bucket = process.env.BUCKET
+
+          exports.handler = function (event, context, callback) {
+              console.log("REQUEST RECEIVED:\n" + JSON.stringify(event))
+              const ATHENA_OUTPUT_LOCATION = `s3://${bucket}/query/`
+              const location = `s3://${bucket}/annealer-experiment/metric/`
+              const dropTableSql = "drop table qc_batch_performance"
+
+              const createTableSql = "CREATE EXTERNAL TABLE IF NOT EXISTS qc_batch_performance(\n" +
+                  "\tM int,\n" +
+                  "\tD int,\n" +
+                  "\tDevice string,\n" +
+                  "\tInstanceType string,\n" +
+                  "\tComputeType string,\n" +
+                  "\tMins float\n" +
+                  ") ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n' LOCATION '" + location + "'"
+
+              const createViewSql = "CREATE OR REPLACE VIEW qc_batch_performance_view as\n" +
+                  "select M,\n" +
+                  "\tD,\n" +
+                  "\tDevice,\n" +
+                  "\tInstanceType,\n" +
+                  "\tComputeType,\n" +
+                  "\tavg(mins) as mins\n" +
+                  "from qc_batch_performance\n" +
+                  "group by M,\n" +
+                  "\tD,\n" +
+                  "\tDevice,\n" +
+                  "\tInstanceType,\n" +
+                  "\tComputeType\n" +
+                  "order by M,\n" +
+                  "\tD,\n" +
+                  "\tDevice,\n" +
+                  "\tInstanceType,\n" +
+                  "\tComputeType"
+
+              console.log("sql:" + dropTableSql)
+              client.startQueryExecution({
+                  QueryString: dropTableSql,
+                  ResultConfiguration: {OutputLocation: ATHENA_OUTPUT_LOCATION},
+              }, (error, results) => {
+                  if (error) {
+                      return callback(error)
+                  } else {
+                      console.info(results.QueryExecutionId)
+                      setTimeout(() => {
+                          client.startQueryExecution({
+                              QueryString: createTableSql,
+                              ResultConfiguration: {OutputLocation: ATHENA_OUTPUT_LOCATION},
+                          }, (error, results) => {
+                              if (error) {
+                                  return callback(error)
+                              } else {
+                                  console.info(results.QueryExecutionId)
+                                  setTimeout(() => {
+                                      console.log("sql:" + createViewSql)
+                                      client.startQueryExecution({
+                                          QueryString: createViewSql,
+                                          ResultConfiguration: {OutputLocation: ATHENA_OUTPUT_LOCATION},
+                                      }, (error, results) => {
+                                          if (error) {
+                                              return callback(error)
+                                          } else {
+                                              console.info(results.QueryExecutionId)
+                                          }
+                                      })
+                                  }, 10000)
+                              }
+                          })
+                      }, 10000)
+                  }
+              })
+          }
+
+
 
 Outputs:
   BatchExperimentStepFunctions:
