@@ -7,7 +7,7 @@ exports.handler = function (event, context, callback) {
     console.log("REQUEST RECEIVED:\n" + JSON.stringify(event))
     const ATHENA_OUTPUT_LOCATION = `s3://${bucket}/query/`
     const location = `s3://${bucket}/annealer-experiment/metric/`
-    const dropTableSql = "DROP TABLE qc_batch_performance"
+    const dropTableSql = "DROP TABLE IF EXISTS qc_batch_performance"
 
     const createTableSql = "CREATE EXTERNAL TABLE IF NOT EXISTS qc_batch_performance(\n" +
         "\tM int,\n" +
