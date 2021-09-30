@@ -7,7 +7,7 @@ exports.handler = function (event, context, callback) {
     console.log("REQUEST RECEIVED:\n" + JSON.stringify(event))
     const ATHENA_OUTPUT_LOCATION = `s3://${bucket}/query/`
     const location = `s3://${bucket}/annealer-experiment/metric/`
-    const dropTableSql = "drop table qc_batch_performance"
+    const dropTableSql = "DROP TABLE qc_batch_performance"
 
     const createTableSql = "CREATE EXTERNAL TABLE IF NOT EXISTS qc_batch_performance(\n" +
         "\tM int,\n" +
@@ -18,7 +18,7 @@ exports.handler = function (event, context, callback) {
         "\tMins float\n" +
         ") ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\\n' LOCATION '" + location + "'"
 
-    const createViewSql = "create view qc_batch_performance_view as\n" +
+    const createViewSql = "CREATE OR REPLACE VIEW qc_batch_performance_view as\n" +
         "select M,\n" +
         "\tD,\n" +
         "\tDevice,\n" +
@@ -36,6 +36,8 @@ exports.handler = function (event, context, callback) {
         "\tDevice,\n" +
         "\tInstanceType,\n" +
         "\tComputeType"
+
+    const querySql = "SELECT * FROM qc_batch_performance_view"
 
     console.log("sql:" + dropTableSql)
     client.startQueryExecution({
@@ -65,6 +67,19 @@ exports.handler = function (event, context, callback) {
                                     return callback(error)
                                 } else {
                                     console.info(results.QueryExecutionId)
+                                    setTimeout(() => {
+                                        console.log("sql:" + querySql)
+                                        client.startQueryExecution({
+                                            QueryString: querySql,
+                                            ResultConfiguration: {OutputLocation: ATHENA_OUTPUT_LOCATION},
+                                        }, (error, results) => {
+                                            if (error) {
+                                                return callback(error)
+                                            } else {
+                                                console.info(results.QueryExecutionId)
+                                            }
+                                        })
+                                    }, 10000)
                                 }
                             })
                         }, 10000)
@@ -73,4 +88,6 @@ exports.handler = function (event, context, callback) {
             }, 10000)
         }
     })
+
+    callback(null, {queryResult: ATHENA_OUTPUT_LOCATION})
 }
