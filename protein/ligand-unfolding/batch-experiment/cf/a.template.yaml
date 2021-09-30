@@ -194,9 +194,9 @@ Resources:
                   }
                 }
               ],
-              "Next": "Create Athena Table"
+              "Next": "Import data to Athena"
             },
-            "Create Athena Table": {
+            "Import data to Athena": {
                "Type": "Task",
               "Resource": "arn:${AWS::Partition}:states:::lambda:invoke",
               "Parameters": {
