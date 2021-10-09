@@ -27,10 +27,10 @@ SM_ROLE=arn:aws:iam::${account_id}:role/qcBatch-HCLS-SageMakerRole-${AWS_REGION}
 awsRegion=$AWS_REGION
 
 Ms=(
-  1
-  2
+#  1
+#  2
   3
-  4
+#  4
 )
 deviceArns=(
   arn:aws:braket:::device/qpu/d-wave/DW_2000Q_6
@@ -44,8 +44,8 @@ instanceTypes=(
 )
 
 Ds=(
- 4
- 6
+ #4
+# 6
  8
 )
 

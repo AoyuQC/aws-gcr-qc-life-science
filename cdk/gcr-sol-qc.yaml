@@ -104,7 +104,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAAE22PzY7CMAyEn4V7cKlWYrU3BCcktFTdJ8i6LjJpY5QfVlWUd980XDnNp9HYY7fQtl+w2xz0n9/iYJqE4gjST9Bo1Gm0nXZ6pkBOncT64CKG1b7G8IiVevISHdLKJTJwYLFZrfuS/4B0jGioJl+UFesZUi9THanaycS41LpKWXl9o1kbcpCK+y2BfkXMuVygLdKFR8IFJyqFI9/Um0jOWVkZCO6+ebZ7+CxP3j3z1kUbeCboX/oP/Uh1LwEBAAA=
+      Analytics: v2:deflate64:H4sIAAAAAAAAA22PzY7CMAyEn4V7cKlWYrU3BCcktFTdJ8i6LjJpY5QfVlWUd980XDnNp9HYY7fQtl+w2xz0n9/iYJqE4gjST9Bo1Gm0nXZ6pkBOncT64CKG1b7G8IiVevISHdLKJTJwYLFZrfuS/4B0jGioJl+UFesZUi9THanaycS41LpKWXl9o1kbcpCK+y2BfkXMuVygLdKFR8IFJyqFI9/Um0jOWVkZCO6+ebZ7+CxP3j3z1kUbeCboX/oP/Uh1LwEBAAA=
     Metadata:
       aws:cdk:path: gcr-qc-life-science-cdk-stack/CDKMetadata/Default
     Condition: CDKMetadataAvailable
